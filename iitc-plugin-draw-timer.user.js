@@ -308,7 +308,7 @@ var wrapper = function(plugin_info) {
                 };
                 this.entries.push(entry);
             }
-            document.getElementById('updateTime').value = ''; // 入力フィールドをクリア
+            document.getElementById('drawData').value = ''; // 入力フィールドをクリア
 
             // データを保存してUIを更新
             this.render();

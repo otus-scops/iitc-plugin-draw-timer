@@ -3,7 +3,7 @@
 // @name           IITC Plugin: Draw Timer
 // @author         otusscops
 // @category       Layer
-// @version        0.1.0.202506041350
+// @version        0.1.0.202506041640
 // @namespace      iitc-plugin-draw-timer
 // @description    Automatically update draw data at specified times
 // @downloadURL    https://github.com/otus-scops/iitc-plugin-draw-timer/raw/refs/heads/main/iitc-plugin-draw-timer.user.js
@@ -36,7 +36,7 @@ var wrapper = function(plugin_info) {
     if(typeof window.plugin !== 'function') window.plugin = function() {};
 
     plugin_info.buildName = 'iitc-ja-otusscops'; // Name of the IITC build for first-party plugins
-    plugin_info.dateTimeVersion = '202506041350'; // Datetime-derived version of the plugin
+    plugin_info.dateTimeVersion = '202506041640'; // Datetime-derived version of the plugin
     plugin_info.pluginId = 'Draw-Timer'; // ID/name of the plugin
     // ensure plugin framework is there, even if iitc is not yet loaded
     if (typeof window.plugin !== "function") window.plugin = function () { };
@@ -289,7 +289,7 @@ var wrapper = function(plugin_info) {
                 return;
             }
             // 既存の時間との重複チェック
-            const existingEntry = this.entries.find(entry => entry.updateTime === updateTime);
+            const existingEntry = this.entries.find(entry => entry.update === updateTime);
 
             if (existingEntry) {
                 // 重複時間が見つかった場合、既存のエントリーのドローを更新
@@ -389,16 +389,16 @@ var wrapper = function(plugin_info) {
         flex-grow: 1;
     }
 
-	#draw-group .draw-add-btn {
+    #draw-group .draw-add-btn {
         background-color: #4CAF50;
         color: white;
         border: none;
         padding: 4px 4px;
         border-radius: 3px;
         cursor: pointer;
-	}
+    }
 
-	#glympseTagEntriesList .draw-entry-item {
+    #glympseTagEntriesList .draw-entry-item {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -408,16 +408,16 @@ var wrapper = function(plugin_info) {
         background-color: #f5f5f5;
         border-radius: 3px;
         border: 1px solid #ddd;
-	}
+    }
 
-	#glympseTagEntriesList .draw-delete-btn {
+    #glympseTagEntriesList .draw-delete-btn {
         background-color: #ff4444;
         color: white;
         border: none;
         padding: 4px 4px;
         border-radius: 3px;
         cursor: pointer;
-	}
+    }
         `;
         let styleTag = document.createElement('style');
         styleTag.setAttribute('type', 'text/css')

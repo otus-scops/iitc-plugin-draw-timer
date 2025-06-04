@@ -3,7 +3,7 @@
 // @name           IITC Plugin: Draw Timer
 // @author         otusscops
 // @category       Layer
-// @version        0.1.0.202506041640
+// @version        0.1.0.202506041650
 // @namespace      iitc-plugin-draw-timer
 // @description    Automatically update draw data at specified times
 // @downloadURL    https://github.com/otus-scops/iitc-plugin-draw-timer/raw/refs/heads/main/iitc-plugin-draw-timer.user.js
@@ -36,7 +36,7 @@ var wrapper = function(plugin_info) {
     if(typeof window.plugin !== 'function') window.plugin = function() {};
 
     plugin_info.buildName = 'iitc-ja-otusscops'; // Name of the IITC build for first-party plugins
-    plugin_info.dateTimeVersion = '202506041640'; // Datetime-derived version of the plugin
+    plugin_info.dateTimeVersion = '202506041650'; // Datetime-derived version of the plugin
     plugin_info.pluginId = 'Draw-Timer'; // ID/name of the plugin
     // ensure plugin framework is there, even if iitc is not yet loaded
     if (typeof window.plugin !== "function") window.plugin = function () { };
@@ -116,7 +116,7 @@ var wrapper = function(plugin_info) {
         };
 
         self.polygonOptions = L.extend({}, self.lineOptions, {
-            fill: true,
+            fill: false,
             fillColor: null, // to use the same as 'color' for fill
             fillOpacity: 0.2,
             dashArray: '',
@@ -256,7 +256,7 @@ var wrapper = function(plugin_info) {
             buttons: {
                 'OK' : async function() {
                     OptionData.useDrawTool = $('#useDrawToolCheck').prop('checked');
-                    OptionData.entries = self.drawManager.getEntry();
+                    OptionData.entries = self.drawManager.getEntry() || [];
 
                     self.saveOption();
 

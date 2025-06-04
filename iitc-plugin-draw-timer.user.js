@@ -64,8 +64,8 @@ var wrapper = function(plugin_info) {
     let OptionData = {};
     let drawUpdateTimer = [];
 
-	// エンドポイントから起動される初期処理用
-	// セットアップ以外の処理で、設定変更時等に再度コールされる想定
+    // エンドポイントから起動される初期処理用
+    // セットアップ以外の処理で、設定変更時等に再度コールされる想定
     self.init = function(){
         self.clearDraw();
         for (let i = 0; i < drawUpdateTimer.length; i++) {
@@ -391,32 +391,32 @@ var wrapper = function(plugin_info) {
 
 	#draw-group .draw-add-btn {
         background-color: #4CAF50;
-	    color: white;
-	    border: none;
-	    padding: 4px 4px;
-	    border-radius: 3px;
-	    cursor: pointer;
+        color: white;
+        border: none;
+        padding: 4px 4px;
+        border-radius: 3px;
+        cursor: pointer;
 	}
 
 	#glympseTagEntriesList .draw-entry-item {
-	    display: flex;
-	    align-items: center;
-	    justify-content: space-between;
-	    color: #000;
-	    padding: 2px;
-	    margin-bottom: 4px;
-	    background-color: #f5f5f5;
-	    border-radius: 3px;
-	    border: 1px solid #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #000;
+        padding: 2px;
+        margin-bottom: 4px;
+        background-color: #f5f5f5;
+        border-radius: 3px;
+        border: 1px solid #ddd;
 	}
 
 	#glympseTagEntriesList .draw-delete-btn {
-	    background-color: #ff4444;
-	    color: white;
-	    border: none;
-	    padding: 4px 4px;
-	    border-radius: 3px;
-	    cursor: pointer;
+        background-color: #ff4444;
+        color: white;
+        border: none;
+        padding: 4px 4px;
+        border-radius: 3px;
+        cursor: pointer;
 	}
         `;
         let styleTag = document.createElement('style');

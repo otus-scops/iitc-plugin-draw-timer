@@ -6,8 +6,8 @@
 // @version        0.1.0.202506041315
 // @namespace      iitc-plugin-draw-timer
 // @description    Automatically update draw data at specified times
-// @downloadURL    [downloadURL]
-// @updateURL      [updateURL]
+// @downloadURL    https://github.com/otus-scops/iitc-plugin-draw-timer/raw/refs/heads/main/iitc-plugin-draw-timer.user.js
+// @updateURL      https://github.com/otus-scops/iitc-plugin-draw-timer/raw/refs/heads/main/iitc-plugin-draw-timer.user.js
 // @include        https://*.ingress.com/*
 // @include        http://*.ingress.com/*
 // @match          https://*.ingress.com/*

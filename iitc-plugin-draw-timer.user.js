@@ -413,7 +413,7 @@ var wrapper = function(plugin_info) {
                 div.className = 'draw-entry-item';
                 div.innerHTML = `
                         <span>${entry.update}</span>
-                        <span>${(entry.draw!=="")?"Data exists.":"Data not exists.Clear draw."}</span>
+                        <span>${(entry.draw!=="")?"Data exists. Update draw.":"Data not exists.Clear draw."}</span>
                         <span id="drawData-${entry.id}" style="display:none;">${entry.draw}</span>
                         <button onclick="window.plugin.drawTimer.updateDraw(document.getElementById('drawData-${entry.id}').innerText)" class="checkData" aria-label="${entry.update} のエントリーを表示">プレビュー</button>
                         <button onclick="window.plugin.drawTimer.drawManager.deleteEntry(${entry.id})" class="draw-delete-btn" aria-label="${entry.update} のエントリーを削除">[X]</button>

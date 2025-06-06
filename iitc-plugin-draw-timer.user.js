@@ -3,7 +3,7 @@
 // @name           IITC Plugin: Draw Timer
 // @author         otusscops
 // @category       Layer
-// @version        0.1.0.202506041700
+// @version        0.2.0.202506060957
 // @namespace      iitc-plugin-draw-timer
 // @description    Automatically update draw data at specified times
 // @downloadURL    https://github.com/otus-scops/iitc-plugin-draw-timer/raw/refs/heads/main/iitc-plugin-draw-timer.user.js
@@ -36,7 +36,7 @@ var wrapper = function(plugin_info) {
     if(typeof window.plugin !== 'function') window.plugin = function() {};
 
     plugin_info.buildName = 'iitc-ja-otusscops'; // Name of the IITC build for first-party plugins
-    plugin_info.dateTimeVersion = '202506041700'; // Datetime-derived version of the plugin
+    plugin_info.dateTimeVersion = '202506060957'; // Datetime-derived version of the plugin
     plugin_info.pluginId = 'Draw-Timer'; // ID/name of the plugin
     // ensure plugin framework is there, even if iitc is not yet loaded
     if (typeof window.plugin !== "function") window.plugin = function () { };
@@ -199,6 +199,42 @@ var wrapper = function(plugin_info) {
         return L.divIcon.coloredSvg(color);
     };
 
+    // 設定のエクスポート
+    self.exportOption = function() {
+        let stream = localStorage.getItem(STORAGE_KEY);
+        if (stream === null) {
+            console.warn('No settings found to export.');
+            return;
+        }
+        let blob = new Blob([stream], { type: 'application/json' });
+        let url = URL.createObjectURL(blob);
+        let a = document.createElement('a');
+        a.href = url;
+        a.download = STORAGE_KEY + '.json';
+        a.click();
+        URL.revokeObjectURL(url);
+    };
+
+    // 設定のインポート
+    self.importOption = function(file) {
+        if (!file || !file.name.endsWith('.json')) {
+            console.warn('Invalid file for import.');
+            return;
+        }
+        let reader = new FileReader();
+        reader.onload = function(event) {
+            try {
+                let data = JSON.parse(event.target.result);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+                self.loadOption(); // Load the imported settings
+                console.log('Settings imported successfully.');
+            } catch (e) {
+                console.error('Failed to parse imported settings:', e);
+            }
+        };
+        reader.readAsText(file);
+    };
+
     // 設定の読み込み
     self.loadOption = function(){
         let stream = localStorage.getItem(STORAGE_KEY);
@@ -254,17 +290,48 @@ var wrapper = function(plugin_info) {
             closeCallback: function(){
                 self.init();
             },
-            buttons: {
-                'OK' : async function() {
-                    OptionData.useDrawTool = $('#useDrawToolCheck').prop('checked');
-                    OptionData.entries = self.drawManager.getEntry() || [];
-
-                    self.saveOption();
-
-                    $(this).dialog('close');
+            buttons: [
+                {
+                    text: 'Import',
+                    class: 'drawTimer-import-button',
+                    click: function() {
+                        let dlg = this;
+                        let input = document.createElement('input');
+                        input.type = 'file';
+                        input.accept = '.json';
+                        input.onchange = function(event) {
+                            let file = event.target.files[0];
+                            self.importOption(file);
+                            $(dlg).dialog('close');
+                        };
+                        input.click();
+                    }
                 },
-                'Cancel' : function() { $(this).dialog('close'); }
-            },
+                {
+                    text: 'Export',
+                    class: 'drawTimer-export-button',
+                    click: function() {
+                        self.exportOption();
+                    }
+                },
+                {
+                    text: 'OK',
+                    class: 'drawTimer-ok-button',
+                    click: function() {
+                        OptionData.useDrawTool = $('#useDrawToolCheck').prop('checked');
+                        OptionData.entries = self.drawManager.getEntry() || [];
+
+                        self.saveOption();
+
+                        $(this).dialog('close');
+                    }
+                },
+                {
+                    text: 'Cancel',
+                    class: 'drawTimer-cancel-button',
+                    click: function() { $(this).dialog('close'); }
+                }
+            ],
         });
     };
 
@@ -404,7 +471,7 @@ var wrapper = function(plugin_info) {
         cursor: pointer;
     }
 
-    #glympseTagEntriesList .draw-entry-item {
+    #drawEntriesList .draw-entry-item {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -416,7 +483,7 @@ var wrapper = function(plugin_info) {
         border: 1px solid #ddd;
     }
 
-    #glympseTagEntriesList .draw-delete-btn {
+    #drawEntriesList .draw-delete-btn {
         background-color: #ff4444;
         color: white;
         border: none;
@@ -424,6 +491,10 @@ var wrapper = function(plugin_info) {
         border-radius: 3px;
         cursor: pointer;
     }
+
+.drawTimer-export-button{
+    margin-right:10px;
+}
         `;
         let styleTag = document.createElement('style');
         styleTag.setAttribute('type', 'text/css')

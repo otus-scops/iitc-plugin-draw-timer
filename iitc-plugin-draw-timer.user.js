@@ -3,7 +3,7 @@
 // @name           IITC Plugin: Draw Timer
 // @author         otusscops
 // @category       Layer
-// @version        0.2.0.202506061620
+// @version        0.2.0.202506061655
 // @namespace      iitc-plugin-draw-timer
 // @description    Automatically update draw data at specified times
 // @downloadURL    https://github.com/otus-scops/iitc-plugin-draw-timer/raw/refs/heads/main/iitc-plugin-draw-timer.user.js
@@ -36,7 +36,7 @@ var wrapper = function(plugin_info) {
     if(typeof window.plugin !== 'function') window.plugin = function() {};
 
     plugin_info.buildName = 'iitc-ja-otusscops'; // Name of the IITC build for first-party plugins
-    plugin_info.dateTimeVersion = '202506061620'; // Datetime-derived version of the plugin
+    plugin_info.dateTimeVersion = '202506061655'; // Datetime-derived version of the plugin
     plugin_info.pluginId = 'Draw-Timer'; // ID/name of the plugin
     // ensure plugin framework is there, even if iitc is not yet loaded
     if (typeof window.plugin !== "function") window.plugin = function () { };
@@ -439,6 +439,7 @@ var wrapper = function(plugin_info) {
         // カスタムレイヤーの追加
         self.drawTimerLayerGroup = new L.FeatureGroup();
         window.layerChooser.addOverlay(self.drawTimerLayerGroup, 'Draw Timer');
+        self.drawTimerLayerGroup.bringToBack();
 
         /* ツールボックスの項目追加 */
         $('#toolbox').append('<a onclick="javascript:window.plugin.drawTimer.settingDialog();">DrawTimer</a>');
